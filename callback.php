@@ -6,6 +6,7 @@ $accessToken = 'wlNrSUFmCkGXpi9p6+x33dIEfdFZ8Bo3Y1ZgtuqsBSeBpQNZxyIOm9dWmjb0mxJe
 $json_string = file_get_contents('php://input');
 $jsonObj = json_decode($json_string);
 
+$userId = $jsonObj->{"events"}[0]->{"source"}->{"userId"};
 $type = $jsonObj->{"events"}[0]->{"message"}->{"type"};
 //メッセージ取得
 $text = $jsonObj->{"events"}[0]->{"message"}->{"text"};
@@ -20,7 +21,7 @@ if($type != "text"){
 //返信データ作成
 $response_format_text = [
 	"type" => "text",
-	"text" => "テキストを返す"
+	"text" => "あなたのuserIDは".$userId."です．"
 	];
 $post_data = [
 	"replyToken" => $replyToken,
